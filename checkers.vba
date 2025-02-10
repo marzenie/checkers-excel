@@ -189,11 +189,31 @@ Function IsValidMove(startX As Integer, startY As Integer, endX As Integer, endY
     End If
 
     ' Ruchy muszą być ukośne (damki) (o X w pionie i X w poziomie)
-    If (piece = 2 Or piece = 4) And (Abs(endX - startX) <> Abs(endY - startY) Or Abs(endX - startX) < 1) Then
+    If (piece = 2 Or piece = 4) Then
+        ' Sprawdzenie, czy ruch jest ukośny
+        If Abs(endX - startX) <> Abs(endY - startY) Or Abs(endX - startX) < 1 Then
+            IsValidMove = 2
+            Debug.Print "3) " & piece & ", " & startX & ", " & startY & ", " & endX & ", " & endY
+            Exit Function
+        End If
     
-        IsValidMove = 2
-        Debug.Print "3) " & piece & ", " & startX & ", " & startY & ", " & endX & ", " & endY
-        Exit Function
+        ' Sprawdzenie, czy na drodze nie ma innych figur
+        Dim stepX As Integer, stepY As Integer
+        stepX = Sgn(endX - startX)
+        stepY = Sgn(endY - startY)
+    
+        Dim x As Integer, y As Integer
+        x = startX + stepX
+        y = startY + stepY
+    
+        Do While x <> endX And y <> endY
+            If Board(x, y) <> 0 And Board(x + stepX, y + stepY) <> 0 Then ' Jeśli na ścieżce znajduje się figura, ruch jest nieprawidłowy
+                IsValidMove = 2
+                Exit Function
+            End If
+            x = x + stepX
+            y = y + stepY
+        Loop
     End If
 
     ' Sprawdzenie kierunku ruchu (pionki mogą poruszać się tylko do przodu)
