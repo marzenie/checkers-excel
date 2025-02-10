@@ -1,3 +1,31 @@
+' Dla ThisWorkBook
+
+Private Sub Workbook_Open()
+    Rows("1:8").RowHeight = 66
+    Columns("A:H").ColumnWidth = 11
+    Columns("I").ColumnWidth = 3
+    Columns("J").ColumnWidth = 20
+    Range("A1:H8").Borders.LineStyle = xlContinuous
+    
+    button_maker ActiveSheet.Range("J2"), "Init", "Nowa Gra"
+    button_maker ActiveSheet.Range("J4"), "DoMove", "Wykonaj Ruch"
+    Init
+End Sub
+
+
+Sub button_maker(r As Range, Action As String, Text As String)
+
+        ActiveSheet.Buttons.Add(r.Left, r.Top, r.Width, r.Height).Select
+        With Selection
+            .OnAction = Action
+            .Characters.Text = Text
+        End With
+    r.Select
+End Sub
+
+' Koniec ThisWorkBook
+
+
 Option Explicit
 
 Dim Board(1 To 8, 1 To 8) As Byte
@@ -15,14 +43,11 @@ Dim NextCapturesX As Integer
 Dim NextCapturesY As Integer
 
 Sub Init()
-    
     Dim i As Integer, j As Integer
+
     lastRound = 0
     NextCaptures = False
     LastCapture = False
-    Rows("1:8").RowHeight = 66
-    Columns("A:H").ColumnWidth = 11
-    Range("A1:H8").Borders.LineStyle = xlContinuous
     
     ' Wyczyść planszę
     For i = 1 To 8
@@ -94,12 +119,12 @@ Sub DoMove()
         
     Else
         Set Sel_Start = Application.InputBox(":", "Wybierz figure do przesunięcia", Type:=8)
-        startX = Sel_Start.row
+        startX = Sel_Start.Row
         startY = Sel_Start.Column
     End If
     
     Set Sel_End = Application.InputBox(":", "Wybierz pole, na które chcesz przesunąć figure", Type:=8)
-    endX = Sel_End.row
+    endX = Sel_End.Row
     endY = Sel_End.Column
     
     ' Sprawdzenie poprawności ruchu
@@ -337,4 +362,7 @@ Function CheckForFurtherCaptures(x As Integer, y As Integer) As Boolean
     
     CheckForFurtherCaptures = hasCapture
 End Function
+
+
+
 
