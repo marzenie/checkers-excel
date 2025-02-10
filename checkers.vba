@@ -108,7 +108,6 @@ End Sub
 
 Sub DoMove()
     Dim startX As Integer, startY As Integer, endX As Integer, endY As Integer
-    Dim userSelectionS As Variant, userSelectionE As Variant
     Dim res As Byte
     Dim Sel_Start As Range
     Dim Sel_End As Range
@@ -119,20 +118,12 @@ Sub DoMove()
         NextCaptures = False
         
     Else
-        userSelectionS = Application.InputBox(":", "Wybierz figure do przesunięcia", Type:=8)
-        If VarType(userSelectionS) = vbBoolean Then
-            Exit Sub
-        End If
-        Set Sel_Start = userSelectionS
+        Set Sel_Start = Application.InputBox(":", "Wybierz figure do przesunięcia", Type:=8)
         startX = Sel_Start.Row
         startY = Sel_Start.Column
     End If
     
-    userSelectionE = Application.InputBox(":", "Wybierz pole, na które chcesz przesunąć figure", Type:=8)
-    If VarType(userSelectionE) = vbBoolean Then
-        Exit Sub
-    End If
-    Set Sel_End = userSelectionE
+    Set Sel_End = Application.InputBox(":", "Wybierz pole, na które chcesz przesunąć figure", Type:=8)
     endX = Sel_End.Row
     endY = Sel_End.Column
     
