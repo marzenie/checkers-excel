@@ -272,7 +272,6 @@ Function Kill(startX As Integer, startY As Integer, endX As Integer, endY As Int
     y = startY + stepY
     
     Do While x <> endX Or y <> endY
-        LastCapture = True
         If Board(x, y) <> 0 Then
             LastCapture = True
         End If
@@ -308,15 +307,19 @@ Function CheckForFurtherCaptures(x As Integer, y As Integer) As Boolean
     ' Sprawdzenie możliwych kierunków ruchu
     For i = -1 To 1 Step 2
         For j = -1 To 1 Step 2
+            Debug.Print "Sprawdzanie_ruchu) " & x & ", " & y & ", " & dx & ", " & dy
             ' Dla pionków sprawdzamy tylko o 2 pola
             If piece = 1 Or piece = 3 Then
+            Debug.Print "Sprawdzanie_ruchu2) " & x & ", " & y & ", " & dx & ", " & dy
                 dx = x + 2 * i
                 dy = y + 2 * j
                 
                 ' Sprawdzenie, czy ruch jest w zakresie planszy
                 If dx >= 1 And dx <= 8 And dy >= 1 And dy <= 8 Then
+                    Debug.Print "Sprawdzanie_ruchu3) " & x & ", " & y & ", " & dx & ", " & dy
                     ' Sprawdzenie, czy ruch jest poprawny (czy jest bicie)
-                    If IsValidMove(x, y, dx, dy) = 0 Then
+                    If IsValidMove(x, y, dx, dy) = 0 Or IsValidMove(x, y, dx, dy) = 4 Then
+                        Debug.Print "Sprawdzanie_ruchu4) " & x & ", " & y & ", " & dx & ", " & dy
                         hasCapture = True
                         Exit For
                     End If
@@ -362,7 +365,3 @@ Function CheckForFurtherCaptures(x As Integer, y As Integer) As Boolean
     
     CheckForFurtherCaptures = hasCapture
 End Function
-
-
-
-
