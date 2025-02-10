@@ -9,6 +9,9 @@ Rules:
 VBA script
 All messages are in Polish
 Remember to have VBA scripts **enabled** in the spreadsheet
+
+additional feature: regular checkers are boring, so the queen can also capture her pawns, getting an extra move for the next capture
+
 ![image](https://github.com/user-attachments/assets/cd4b53e2-8e08-4ab9-b19f-e2e31512427c)
 
 ![image](https://github.com/user-attachments/assets/efafcf06-e917-4394-8283-618441b8932b)
