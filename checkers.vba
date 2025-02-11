@@ -118,12 +118,26 @@ Sub DoMove()
         NextCaptures = False
         
     Else
+        On Error Resume Next
         Set Sel_Start = Application.InputBox(":", "Wybierz figure do przesunięcia", Type:=8)
+        If Err.Number = 424 Then
+            ' Handle cancel button
+            Debug.Print "User cancelled"
+            Exit Sub
+        End If
+        
         startX = Sel_Start.Row
         startY = Sel_Start.Column
     End If
     
+    On Error Resume Next
     Set Sel_End = Application.InputBox(":", "Wybierz pole, na które chcesz przesunąć figure", Type:=8)
+    If Err.Number = 424 Then
+        ' Handle cancel button
+        Debug.Print "User cancelled 2"
+        Exit Sub
+    End If
+    
     endX = Sel_End.Row
     endY = Sel_End.Column
     
@@ -318,7 +332,7 @@ Function CheckForFurtherCaptures(x As Integer, y As Integer) As Boolean
                 If dx >= 1 And dx <= 8 And dy >= 1 And dy <= 8 Then
                     Debug.Print "Sprawdzanie_ruchu3) " & x & ", " & y & ", " & dx & ", " & dy
                     ' Sprawdzenie, czy ruch jest poprawny (czy jest bicie)
-                    If IsValidMove(x, y, dx, dy) = 0 Or IsValidMove(x, y, dx, dy) = 4 Then
+                    If IsValidMove(x, y, dx, dy) = 0 Then
                         Debug.Print "Sprawdzanie_ruchu4) " & x & ", " & y & ", " & dx & ", " & dy
                         hasCapture = True
                         Exit For
