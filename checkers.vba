@@ -332,7 +332,7 @@ Function CheckForFurtherCaptures(x As Integer, y As Integer) As Boolean
                 If dx >= 1 And dx <= 8 And dy >= 1 And dy <= 8 Then
                     Debug.Print "Sprawdzanie_ruchu3) " & x & ", " & y & ", " & dx & ", " & dy
                     ' Sprawdzenie, czy ruch jest poprawny (czy jest bicie)
-                    If IsValidMove(x, y, dx, dy) = 0 Then
+                    If IsValidMove(x, y, dx, dy) = 0 Or IsValidMove(x, y, dx, dy) = 4 Then
                         Debug.Print "Sprawdzanie_ruchu4) " & x & ", " & y & ", " & dx & ", " & dy
                         hasCapture = True
                         Exit For
